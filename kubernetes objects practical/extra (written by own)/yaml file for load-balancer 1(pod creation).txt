@@ -1,0 +1,17 @@
+apiVersion: extension/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-kubetrain
+spec:
+  template:
+    metadata:
+	  labels:
+	    tag: label-kubtrain
+	spec:
+	  containers:
+	  - name: ctr-kubetrain
+	    image: nginx
+	replicas: 3
+	selector:
+	  matchLabels:
+	    tag: label-kubetrain

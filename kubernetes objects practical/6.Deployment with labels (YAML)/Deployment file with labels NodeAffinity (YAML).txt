@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapps
+  labels:
+    mylabelname: webapps
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      mylabelname: webapps
+  template:
+    metadata:
+      labels:
+        mylabelname: webapps
+    spec:
+      affinity:
+	nodeAffinity:
+	  requiredDuringSchedulingIgnoredDuringExecution:
+	    nodeSelectorTerms:
+	    - matchExpressions:
+	      - key: name
+	        operator: In
+		values:
+		- noor
+      containers:
+      - name: fleetman
+        image: richardchesterwood/k8s-fleetman-webapp-angular:release0 
+        ports:
+        - containerPort: 80
